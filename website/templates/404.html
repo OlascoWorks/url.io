@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+    <div class="flex flex-col mt-[10%] items-center space-y-2 text-center">
+        <span class="text-6xl sm:text-7xl font-extrabold min-h-fit" style="background: linear-gradient(90deg, #144EE3 -0.02%, #EB568E 18.86%, #A353AA 64.49%, #144EE3 100.67%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;">Uh Oh :(</span>
+        <span class="text-text max-w-[85%] sm:max-w-[35%] text-xs font-light">The page you are trying to visit does not exist or might be disabled. If you are the link owner, please enable the link</span>
+    </div>
+
+    <span class="text-sm text-text font-extralight absolute left-1/2 -translate-x-1/2 top-[92%]">give <a href="{{ base }}" class="!text-red-500">Url.io</a> a try!</span>
+{% endblock %}

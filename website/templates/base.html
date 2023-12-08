@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body class="sm:overflow-x-hidden bg-main-bg m-0 !font-main" hx-ext="response-targets">
+    <div class="contents">
+        <div
+        role="alert"
+        class="relative left-1/2 -translate-x-1/2 hidden items-center max-w-max px-4 py-2 text-xs text-white bg-red-500 rounded-lg font-light"
+        id="alert"
+        data-dismissible="alert"
+        >
+            <div class="mr-12" id="text">A dismissible alert for showing message.</div>
+            <button
+                role="button"
+                data-dismissible-target="alert"
+                aria-label="Close"
+                class="!absolute right-3 h-6 max-h-[32px] w-6 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                id="dismiss-btn"
+            >
+                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    class="w-4 h-"
+                    stroke-width="2"
+                >
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                </svg>
+                </span>
+            </button>
+        </div>
+        {% block contents %}
+            <div class="flex justify-between items-center content-center mx-7 sm:mx-10 my-5">
+                <span class="text-3xl font-semibold h-full" style="background: radial-gradient(12441.24% 97.1% at 5.56% 79.01%, #EB568E 0%, #144EE3 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;">Url.io</span>
+                {% if not user.is_authenticated %}
+                    <div class="flex space-x-4">
+                        <a href="{{ url_for('auth.login') }}">
+                            <div class="bg-bg btn border border-border space-x-2">
+                                <span>Login</span>
+                                <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.3672 9.96875C14.6016 9.73438 14.6016 9.30469 14.3672 9.07031L9.36719 4.07031C9.13281 3.83594 8.70312 3.83594 8.46875 4.07031C8.23438 4.30469 8.23438 4.73438 8.46875 4.96875L12.4141 8.875H1.4375C1.08594 8.875 0.8125 9.1875 0.8125 9.5C0.8125 9.85156 1.08594 10.125 1.4375 10.125H12.4141L8.46875 14.0703C8.23438 14.3047 8.23438 14.7344 8.46875 14.9688C8.70312 15.2031 9.13281 15.2031 9.36719 14.9688L14.3672 9.96875ZM13.9375 17C13.5859 17 13.3125 17.3125 13.3125 17.625C13.3125 17.9766 13.5859 18.25 13.9375 18.25H17.6875C19.4062 18.25 20.8125 16.8828 20.8125 15.125V3.875C20.8125 2.15625 19.4062 0.75 17.6875 0.75H13.9375C13.5859 0.75 13.3125 1.0625 13.3125 1.375C13.3125 1.72656 13.5859 2 13.9375 2H17.6875C18.7031 2 19.5625 2.85938 19.5625 3.875V15.125C19.5625 16.1797 18.7031 17 17.6875 17H13.9375Z" fill="#C9CED6"/>
+                                </svg>                                                
+                            </div>
+                        </a>
+                        <a href="{{ url_for('auth.signup') }}">
+                            <div class="btn bg-primary-blue !hidden sm:!block">
+                                <span>Register Now</span>                
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="flex space-x-4">
+                        <div class="bg-primary-blue btn border border-border space-x-2" hx-post="/auth/logout">
+                            <span>Logout</span>
+                            <svg width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.3672 9.96875C14.6016 9.73438 14.6016 9.30469 14.3672 9.07031L9.36719 4.07031C9.13281 3.83594 8.70312 3.83594 8.46875 4.07031C8.23438 4.30469 8.23438 4.73438 8.46875 4.96875L12.4141 8.875H1.4375C1.08594 8.875 0.8125 9.1875 0.8125 9.5C0.8125 9.85156 1.08594 10.125 1.4375 10.125H12.4141L8.46875 14.0703C8.23438 14.3047 8.23438 14.7344 8.46875 14.9688C8.70312 15.2031 9.13281 15.2031 9.36719 14.9688L14.3672 9.96875ZM13.9375 17C13.5859 17 13.3125 17.3125 13.3125 17.625C13.3125 17.9766 13.5859 18.25 13.9375 18.25H17.6875C19.4062 18.25 20.8125 16.8828 20.8125 15.125V3.875C20.8125 2.15625 19.4062 0.75 17.6875 0.75H13.9375C13.5859 0.75 13.3125 1.0625 13.3125 1.375C13.3125 1.72656 13.5859 2 13.9375 2H17.6875C18.7031 2 19.5625 2.85938 19.5625 3.875V15.125C19.5625 16.1797 18.7031 17 17.6875 17H13.9375Z" fill="#C9CED6"/>
+                            </svg>                                                
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-col mt-[10%] sm:mt-[3%] items-center space-y-2 text-center">
+                <span class="text-3xl sm:text-4xl font-semibold min-h-fit" style="background: linear-gradient(90deg, #144EE3 -0.02%, #EB568E 18.86%, #A353AA 64.49%, #144EE3 100.67%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;">Shorten Your Loooong Urls :)</span>
+                {% if not user.is_authenticated %} <span class="text-text max-w-[85%] sm:max-w-[35%] text-xs font-extralight">Urlio is an efficient and easy-to-use URL shortening service that streamlines your online experience.</span> {% endif %}
+            </div>
+
+            <form hx-post="/url/create" hx-target="#extra" hx-target-5*="#alert" hx-target-400="#alert" hx-swap="outerHTML">
+                <div class="mt-[3%] px-5 relative left-1/2 -translate-x-1/2 flex items-center content-center max-w-[95%] md:max-w-[35%]">
+                    <svg class="absolute left-10" width="26" height="19" viewBox="0 0 26 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.5859 9.5L18.7031 14.3828C16.75 16.3359 13.5859 16.3359 11.6719 14.3828C9.79688 12.5078 9.67969 9.53906 11.3984 7.58594L11.6328 7.35156C11.8281 7.07812 12.2578 7.03906 12.4922 7.27344C12.7656 7.50781 12.8047 7.89844 12.5703 8.17188L12.375 8.40625C11.0859 9.89062 11.1641 12.1172 12.5312 13.4844C14.0156 14.9688 16.3594 14.9688 17.8438 13.4844L22.6875 8.64062C24.1719 7.15625 24.1719 4.8125 22.6875 3.32812C21.2422 1.88281 18.8594 1.88281 17.4141 3.32812L16.5156 4.22656C16.2812 4.46094 15.8906 4.46094 15.6172 4.22656C15.3828 3.95312 15.3828 3.5625 15.6172 3.32812L16.5156 2.42969C18.4688 0.476562 21.6328 0.476562 23.5859 2.42969C25.5391 4.38281 25.5391 7.54688 23.5859 9.5ZM2.375 9.5L7.25781 4.65625C9.21094 2.70312 12.3359 2.70312 14.3281 4.65625C16.1641 6.49219 16.2812 9.46094 14.5625 11.4531L14.3281 11.6875C14.1328 11.9609 13.7422 12 13.4688 11.7656C13.1953 11.5312 13.1562 11.1406 13.3906 10.8672L13.625 10.6328C14.875 9.14844 14.7969 6.92188 13.4297 5.55469C11.9453 4.07031 9.60156 4.07031 8.11719 5.55469L3.27344 10.3984C1.78906 11.8828 1.78906 14.2266 3.27344 15.7109C4.71875 17.1562 7.10156 17.1562 8.54688 15.7109L9.44531 14.8125C9.67969 14.5781 10.0703 14.5781 10.3438 14.8125C10.5781 15.0469 10.5781 15.4766 10.3438 15.7109L9.44531 16.5703C7.49219 18.5234 4.32812 18.5234 2.375 16.5703C0.421875 14.6172 0.421875 11.4531 2.375 9.5Z" fill="#C9CED6"/>
+                    </svg>
+                    <input type="text" name="url" class="w-full h-12 rounded-full bg-bg border-4 border-border text-text text-xs px-14 sm:px-16 py-1 outline-none" placeholder="Enter url here" minlength="6" required>
+                    <button class="btn bg-primary-blue text-white absolute right-7" type="submit"><span class="text-xs">Shorten Now!</span></button>
+                </div>
+            </form>
+
+            <div class="mx-10 sm:mx-14 max-w-[90%] flex flex-col items-center mt-[4%]">
+                {% if not user.is_authenticated %}
+                    <span class="text-text text-sm text-center">You can create <span class="!text-red-400">0{{ limit }}</span> more links. Register Now to enjoy Unlimited usage</span>
+                {% endif %}
+                <table class="w-full text-text text-left mt-[2%] px-2 sm:px-8 !border-separate !border-spacing-y-1 border-spacing-x-0 mobile:hidden" style="box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
+                backdrop-filter: blur(14px);">
+                    <tr class="bg-bg !text-left text-xs font-light">
+                        <th class="bg-bg py-3 px-4 rounded-tl-lg">Short Link</th>
+                        <th class="bg-bg py-3 px-4">Original Link</th>
+                        <th class="bg-bg py-3 px-4">Clicks</th>
+                        <th class="bg-bg py-3 px-4">Status</th>
+                        <th class="bg-bg py-3 px-4 rounded-tr-lg">Date</th>
+                    </tr>
+                    {% if user.is_authenticated %}
+                        {% for url in urls %}
+                            <tr class="t-row">
+                                <td><a href="{{ base + '/' + url.new_url }}" target="_blank" rel="noopener noreferrer">{{ base + '/' + url.new_url }}</a></td>
+                                <td><a href="{{ url.original_url }}" target="_blank" rel="noopener noreferrer"></a>{{ url.original_url[:60] }} 
+                                    {% if url['original_url'] | length > 60 %}...{% endif %}</td>
+                                <td>{{ url.clicks }}</td>
+                                <td class="status !cursor-pointer" hx-post="/url/{{ url.id }}/status/change" hx-trigger="click" hx-swap="outerHTML">{% if url.status == 1 %} Active {% else %} Inactive {% endif %}
+                                    {% if url.status == 1 %}
+                                        <svg width="26" height="25" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="0.25" width="35" height="35" rx="17.5" fill="#1EB036" fill-opacity="0.14"/>
+                                            <path d="M25.6895 17.875L22.0273 21.5371C20.5625 23.002 18.1895 23.002 16.7539 21.5371C15.3477 20.1309 15.2598 17.9043 16.5488 16.4395L16.7246 16.2637C16.8711 16.0586 17.1934 16.0293 17.3691 16.2051C17.5742 16.3809 17.6035 16.6738 17.4277 16.8789L17.2812 17.0547C16.3145 18.168 16.373 19.8379 17.3984 20.8633C18.5117 21.9766 20.2695 21.9766 21.3828 20.8633L25.0156 17.2305C26.1289 16.1172 26.1289 14.3594 25.0156 13.2461C23.9316 12.1621 22.1445 12.1621 21.0605 13.2461L20.3867 13.9199C20.2109 14.0957 19.918 14.0957 19.7129 13.9199C19.5371 13.7148 19.5371 13.4219 19.7129 13.2461L20.3867 12.5723C21.8516 11.1074 24.2246 11.1074 25.6895 12.5723C27.1543 14.0371 27.1543 16.4102 25.6895 17.875ZM9.78125 17.875L13.4434 14.2422C14.9082 12.7773 17.252 12.7773 18.7461 14.2422C20.123 15.6191 20.2109 17.8457 18.9219 19.3398L18.7461 19.5156C18.5996 19.7207 18.3066 19.75 18.1016 19.5742C17.8965 19.3984 17.8672 19.1055 18.043 18.9004L18.2188 18.7246C19.1562 17.6113 19.0977 15.9414 18.0723 14.916C16.959 13.8027 15.2012 13.8027 14.0879 14.916L10.4551 18.5488C9.3418 19.6621 9.3418 21.4199 10.4551 22.5332C11.5391 23.6172 13.3262 23.6172 14.4102 22.5332L15.084 21.8594C15.2598 21.6836 15.5527 21.6836 15.7578 21.8594C15.9336 22.0352 15.9336 22.3574 15.7578 22.5332L15.084 23.1777C13.6191 24.6426 11.2461 24.6426 9.78125 23.1777C8.31641 21.7129 8.31641 19.3398 9.78125 17.875Z" fill="#C9CED6"/>
+                                        </svg>
+                                    {% else %}
+                                        <svg width="26" height="25" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="0.25" width="35" height="35" rx="17.5" fill="#B0901E" fill-opacity="0.19"/>
+                                            <path d="M9.10742 10.4922L26.9492 24.5547C27.125 24.7012 27.1836 25.0234 27.0078 25.1992C26.8613 25.4043 26.5684 25.4629 26.3633 25.2871L8.55078 11.2246C8.3457 11.0781 8.28711 10.7559 8.46289 10.5801C8.60938 10.375 8.93164 10.3164 9.10742 10.4922ZM25.6895 17.875L23.5215 20.0723L22.7891 19.4863L25.0156 17.2305C26.1289 16.1172 26.1289 14.3594 25.0156 13.2461C23.9316 12.1621 22.1445 12.1621 21.0605 13.2461L20.3867 13.9199C20.2109 14.0957 19.918 14.0957 19.7129 13.9199C19.5371 13.7148 19.5371 13.4219 19.7129 13.2461L20.3867 12.5723C21.8516 11.1074 24.2246 11.1074 25.6895 12.5723C27.1543 14.0371 27.1543 16.4102 25.6895 17.875ZM20.5039 22.4746C19.2148 22.8555 17.7793 22.5625 16.7539 21.5371C15.9629 20.7461 15.582 19.6914 15.6699 18.6367L16.6367 19.3984C16.7246 19.9551 16.9883 20.4531 17.3984 20.8633C17.9844 21.4492 18.7754 21.7422 19.5371 21.6836L20.5039 22.4746ZM18.0723 14.916V14.8867C17.4863 14.3301 16.6953 14.0371 15.9336 14.0664L14.9668 13.3047C16.2559 12.9238 17.7207 13.2168 18.7168 14.2422C19.5078 15.0332 19.8887 16.0879 19.8301 17.1426L18.834 16.3809C18.7461 15.8242 18.4824 15.3262 18.0723 14.916ZM12.7109 16.293L10.4551 18.5488C9.3418 19.6621 9.3418 21.4199 10.4551 22.5332C11.5391 23.6172 13.3262 23.6172 14.4102 22.5332L15.084 21.8594C15.2598 21.6836 15.5527 21.6836 15.7578 21.8594C15.9336 22.0352 15.9336 22.3574 15.7578 22.5332L15.084 23.1777C13.6191 24.6426 11.2461 24.6426 9.78125 23.1777C8.31641 21.7129 8.31641 19.3398 9.78125 17.875L11.9492 15.707L12.7109 16.293Z" fill="#B0901E"/>
+                                        </svg>
+                                    {% endif %}                                
+                                </td>
+                                <td>{{ url.date.strftime('%m-%d-%Y') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for url in urls %}
+                            <tr class="t-row">
+                                <td><a href="{{ base + '/' + url['new_url'] }}" target="_blank" rel="noopener noreferrer">{{ base + '/' + url['new_url'] }}</a></td>
+                                <td><a href="{{ url['original_url'] }}" target="_blank" rel="noopener noreferrer">{{ url['original_url'][:60] }} 
+                                </a>{% if url['original_url'] | length > 60 %}...{% endif %}</td>
+                                <td>Sign-in</td>
+                                <td class="status !cursor-not-allowed">Active
+                                    <svg width="26" height="25" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.25" width="35" height="35" rx="17.5" fill="#1EB036" fill-opacity="0.14"/>
+                                    <path d="M25.6895 17.875L22.0273 21.5371C20.5625 23.002 18.1895 23.002 16.7539 21.5371C15.3477 20.1309 15.2598 17.9043 16.5488 16.4395L16.7246 16.2637C16.8711 16.0586 17.1934 16.0293 17.3691 16.2051C17.5742 16.3809 17.6035 16.6738 17.4277 16.8789L17.2812 17.0547C16.3145 18.168 16.373 19.8379 17.3984 20.8633C18.5117 21.9766 20.2695 21.9766 21.3828 20.8633L25.0156 17.2305C26.1289 16.1172 26.1289 14.3594 25.0156 13.2461C23.9316 12.1621 22.1445 12.1621 21.0605 13.2461L20.3867 13.9199C20.2109 14.0957 19.918 14.0957 19.7129 13.9199C19.5371 13.7148 19.5371 13.4219 19.7129 13.2461L20.3867 12.5723C21.8516 11.1074 24.2246 11.1074 25.6895 12.5723C27.1543 14.0371 27.1543 16.4102 25.6895 17.875ZM9.78125 17.875L13.4434 14.2422C14.9082 12.7773 17.252 12.7773 18.7461 14.2422C20.123 15.6191 20.2109 17.8457 18.9219 19.3398L18.7461 19.5156C18.5996 19.7207 18.3066 19.75 18.1016 19.5742C17.8965 19.3984 17.8672 19.1055 18.043 18.9004L18.2188 18.7246C19.1562 17.6113 19.0977 15.9414 18.0723 14.916C16.959 13.8027 15.2012 13.8027 14.0879 14.916L10.4551 18.5488C9.3418 19.6621 9.3418 21.4199 10.4551 22.5332C11.5391 23.6172 13.3262 23.6172 14.4102 22.5332L15.084 21.8594C15.2598 21.6836 15.5527 21.6836 15.7578 21.8594C15.9336 22.0352 15.9336 22.3574 15.7578 22.5332L15.084 23.1777C13.6191 24.6426 11.2461 24.6426 9.78125 23.1777C8.31641 21.7129 8.31641 19.3398 9.78125 17.875Z" fill="#C9CED6"/>
+                                    </svg>                             
+                                </td>
+                                <td>{{ url['date'].strftime('%m-%d-%Y') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    <tr id="extra"></tr>
+                </table>
+                <div class="hidden mobile:block w-full text-text mt-[5%] px-2">
+                    <div class="py-2 px-4 text-xs font-light bg-bg rounded-t-lg">Shortened Links</div>
+                    {% if user.is_authenticated %}
+                        {% for url in urls %}
+                            <div class="px-4 py-2 text-xs font-thin bg-bg !bg-opacity-[22%] mb-2 rounded">
+                                <div><span class="font-extralight">Short:    </span><a href="{{ base + '/' + url.new_url }}" target="_blank" rel="noopener noreferrer">{{ base + '/' + url.new_url }}</a></div>
+                                <div class="mt-1"><span class="font-extralight">Original:    </span><a href="{{ url.original_url }}" target="_blank" rel="noopener noreferrer"></a>{{ url.original_url[:30] }} 
+                                    {% if url.original_url | length > 30 %}...{% endif %}</div>
+                                <div class="flex justify-between mt-5">
+                                    <div>{{ url.clicks }} clicks</div>
+                                    <div class="status !cursor-pointer" hx-post="/url/{{ url.id }}/status/change?size=mobile" hx-trigger="click" hx-swap="outerHTML">{% if url.status == 1 %} Active {% else %} Inactive {% endif %}
+                                        {% if url.status == 1 %}
+                                            <svg width="16" height="15" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="0.25" width="35" height="35" rx="17.5" fill="#1EB036" fill-opacity="0.14"/>
+                                                <path d="M25.6895 17.875L22.0273 21.5371C20.5625 23.002 18.1895 23.002 16.7539 21.5371C15.3477 20.1309 15.2598 17.9043 16.5488 16.4395L16.7246 16.2637C16.8711 16.0586 17.1934 16.0293 17.3691 16.2051C17.5742 16.3809 17.6035 16.6738 17.4277 16.8789L17.2812 17.0547C16.3145 18.168 16.373 19.8379 17.3984 20.8633C18.5117 21.9766 20.2695 21.9766 21.3828 20.8633L25.0156 17.2305C26.1289 16.1172 26.1289 14.3594 25.0156 13.2461C23.9316 12.1621 22.1445 12.1621 21.0605 13.2461L20.3867 13.9199C20.2109 14.0957 19.918 14.0957 19.7129 13.9199C19.5371 13.7148 19.5371 13.4219 19.7129 13.2461L20.3867 12.5723C21.8516 11.1074 24.2246 11.1074 25.6895 12.5723C27.1543 14.0371 27.1543 16.4102 25.6895 17.875ZM9.78125 17.875L13.4434 14.2422C14.9082 12.7773 17.252 12.7773 18.7461 14.2422C20.123 15.6191 20.2109 17.8457 18.9219 19.3398L18.7461 19.5156C18.5996 19.7207 18.3066 19.75 18.1016 19.5742C17.8965 19.3984 17.8672 19.1055 18.043 18.9004L18.2188 18.7246C19.1562 17.6113 19.0977 15.9414 18.0723 14.916C16.959 13.8027 15.2012 13.8027 14.0879 14.916L10.4551 18.5488C9.3418 19.6621 9.3418 21.4199 10.4551 22.5332C11.5391 23.6172 13.3262 23.6172 14.4102 22.5332L15.084 21.8594C15.2598 21.6836 15.5527 21.6836 15.7578 21.8594C15.9336 22.0352 15.9336 22.3574 15.7578 22.5332L15.084 23.1777C13.6191 24.6426 11.2461 24.6426 9.78125 23.1777C8.31641 21.7129 8.31641 19.3398 9.78125 17.875Z" fill="#C9CED6"/>
+                                            </svg>
+                                        {% else %}
+                                            <svg width="16" height="15" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="0.25" width="35" height="35" rx="17.5" fill="#B0901E" fill-opacity="0.19"/>
+                                                <path d="M9.10742 10.4922L26.9492 24.5547C27.125 24.7012 27.1836 25.0234 27.0078 25.1992C26.8613 25.4043 26.5684 25.4629 26.3633 25.2871L8.55078 11.2246C8.3457 11.0781 8.28711 10.7559 8.46289 10.5801C8.60938 10.375 8.93164 10.3164 9.10742 10.4922ZM25.6895 17.875L23.5215 20.0723L22.7891 19.4863L25.0156 17.2305C26.1289 16.1172 26.1289 14.3594 25.0156 13.2461C23.9316 12.1621 22.1445 12.1621 21.0605 13.2461L20.3867 13.9199C20.2109 14.0957 19.918 14.0957 19.7129 13.9199C19.5371 13.7148 19.5371 13.4219 19.7129 13.2461L20.3867 12.5723C21.8516 11.1074 24.2246 11.1074 25.6895 12.5723C27.1543 14.0371 27.1543 16.4102 25.6895 17.875ZM20.5039 22.4746C19.2148 22.8555 17.7793 22.5625 16.7539 21.5371C15.9629 20.7461 15.582 19.6914 15.6699 18.6367L16.6367 19.3984C16.7246 19.9551 16.9883 20.4531 17.3984 20.8633C17.9844 21.4492 18.7754 21.7422 19.5371 21.6836L20.5039 22.4746ZM18.0723 14.916V14.8867C17.4863 14.3301 16.6953 14.0371 15.9336 14.0664L14.9668 13.3047C16.2559 12.9238 17.7207 13.2168 18.7168 14.2422C19.5078 15.0332 19.8887 16.0879 19.8301 17.1426L18.834 16.3809C18.7461 15.8242 18.4824 15.3262 18.0723 14.916ZM12.7109 16.293L10.4551 18.5488C9.3418 19.6621 9.3418 21.4199 10.4551 22.5332C11.5391 23.6172 13.3262 23.6172 14.4102 22.5332L15.084 21.8594C15.2598 21.6836 15.5527 21.6836 15.7578 21.8594C15.9336 22.0352 15.9336 22.3574 15.7578 22.5332L15.084 23.1777C13.6191 24.6426 11.2461 24.6426 9.78125 23.1777C8.31641 21.7129 8.31641 19.3398 9.78125 17.875L11.9492 15.707L12.7109 16.293Z" fill="#B0901E"/>
+                                            </svg>
+                                        {% endif %}                                
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {% for url in urls %}
+                            <div class="px-4 py-2 text-xs font-thin bg-bg !bg-opacity-[22%] mb-2 rounded">
+                                <div><span class="font-extralight">Short:    </span><a href="{{ base + '/' + url['new_url'] }}" target="_blank" rel="noopener noreferrer">{{ base + '/' + url['new_url'] }}</a></div>
+                                <div class="mt-1"><span class="font-extralight">Original:    </span><a href="{{ url['original_url'] }}" target="_blank" rel="noopener noreferrer"></a>{{ url['original_url'][:30] }} 
+                                    {% if url['original_url'] | length > 30 %}...{% endif %}</div>
+                                <div class="flex justify-between mt-5">
+                                    <div>Sign-in</div>
+                                    <div class="status !cursor-pointer">Active
+                                        <svg width="16" height="15" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="0.25" width="35" height="35" rx="17.5" fill="#1EB036" fill-opacity="0.14"/>
+                                            <path d="M25.6895 17.875L22.0273 21.5371C20.5625 23.002 18.1895 23.002 16.7539 21.5371C15.3477 20.1309 15.2598 17.9043 16.5488 16.4395L16.7246 16.2637C16.8711 16.0586 17.1934 16.0293 17.3691 16.2051C17.5742 16.3809 17.6035 16.6738 17.4277 16.8789L17.2812 17.0547C16.3145 18.168 16.373 19.8379 17.3984 20.8633C18.5117 21.9766 20.2695 21.9766 21.3828 20.8633L25.0156 17.2305C26.1289 16.1172 26.1289 14.3594 25.0156 13.2461C23.9316 12.1621 22.1445 12.1621 21.0605 13.2461L20.3867 13.9199C20.2109 14.0957 19.918 14.0957 19.7129 13.9199C19.5371 13.7148 19.5371 13.4219 19.7129 13.2461L20.3867 12.5723C21.8516 11.1074 24.2246 11.1074 25.6895 12.5723C27.1543 14.0371 27.1543 16.4102 25.6895 17.875ZM9.78125 17.875L13.4434 14.2422C14.9082 12.7773 17.252 12.7773 18.7461 14.2422C20.123 15.6191 20.2109 17.8457 18.9219 19.3398L18.7461 19.5156C18.5996 19.7207 18.3066 19.75 18.1016 19.5742C17.8965 19.3984 17.8672 19.1055 18.043 18.9004L18.2188 18.7246C19.1562 17.6113 19.0977 15.9414 18.0723 14.916C16.959 13.8027 15.2012 13.8027 14.0879 14.916L10.4551 18.5488C9.3418 19.6621 9.3418 21.4199 10.4551 22.5332C11.5391 23.6172 13.3262 23.6172 14.4102 22.5332L15.084 21.8594C15.2598 21.6836 15.5527 21.6836 15.7578 21.8594C15.9336 22.0352 15.9336 22.3574 15.7578 22.5332L15.084 23.1777C13.6191 24.6426 11.2461 24.6426 9.78125 23.1777C8.31641 21.7129 8.31641 19.3398 9.78125 17.875Z" fill="#C9CED6"/>
+                                        </svg>                              
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+
+    <span class="hidden md:block text-white absolute top-1/2 -translate-y-1/2 -right-24 rotate-90" style="font-size: 10px;font-weight: 60;">Don't forget to support the creator with a <a class="text-yellow-500" href="https://www.buymeacoffee.com/kidwithadream" target="_blank" rel="noopener noreferrer">coffee</a>🙃</span>
+    <script src="{{ url_for('static', filename='js/htmx.min.js') }}"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
+    <script>
+        let dismissBtn = document.querySelector('#dismiss-btn');
+    </script>
+</body>
+</html>

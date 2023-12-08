@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+    @apply flex items-center px-4 py-2 text-white rounded-full hover:cursor-pointer text-sm font-normal disabled:opacity-30
+}
+
+.t-row {
+    @apply bg-bg !bg-opacity-[22%] cursor-grabbing mb-3 text-[10px] font-thin
+}
+
+.t-row > td {
+    @apply py-2 px-4
+}
+
+.status {
+    @apply flex items-center gap-3
+}
+
+.weird {
+    @apply text-red-500 border-red-500 mt-5 ml-4
+}

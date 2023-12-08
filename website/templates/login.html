@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block contents %}
+    <h3 class="text-5xl font-bold mt-16 h-14" align="center" style="background: linear-gradient(90deg, #144EE3 -0.02%, #EB568E 18.86%, #A353AA 64.49%, #144EE3 100.67%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;">Login</h3>
+    <form class="mt-12 w-[90%] sm:w-[40%] relative left-1/2 -translate-x-1/2 top-1/2 space-y-8" hx-post="/auth/login" hx-target-5*="#alert" hx-target-400="#alert" hx-swap="outerHTML">
+        <div id="grp">
+            <input type="text" class="w-full h-12 rounded-full bg-bg border-4 border-border text-text text-xs px-14 sm:px-16 py-1 outline-none" placeholder="Enter email here" id="email" name="email">
+        </div>
+        <div id="pass-grp">
+            <input type="text" class="w-full h-12 rounded-full bg-bg border-4 border-border text-text text-xs px-14 sm:px-16 py-1 outline-none" placeholder="Enter password here" id="password" name="password">
+        </div>
+        <button class="btn !px-[20%] !py-3 !rounded-md bg-primary-blue mt-10 absolute left-1/2 -translate-x-1/2" type="submit">Submit</button>
+    </form>
+
+    <span class="text-sm text-text font-extralight absolute left-1/2 -translate-x-1/2 top-[90%]">Don't have an account? <a href="{{ url_for('auth.signup') }}" class="!text-red-500">Sign-up</a></span>
+{% endblock %}
+    
