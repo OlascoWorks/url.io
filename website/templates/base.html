@@ -200,7 +200,8 @@
     <script src="{{ url_for('static', filename='js/htmx.min.js') }}"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
     <script>
-        let dismissBtn = document.querySelector('#dismiss-btn');
+        let dismissBtn = null;
+        let alertDiv = null;
     </script>
 </body>
 </html>

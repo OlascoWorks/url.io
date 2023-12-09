@@ -1,10 +1,10 @@
 from flask import request, session
 from flask_login import current_user, login_required
 from website import db
-from website.api import url
-from website.api.user.controllers import token_required, make_error_response, BASE_URL
+from website.api import url, BASE_URL
+from website.api.user.controllers import make_error_response
 from .controllers import get_all_urls, create_all_xxcrf_urls, change_status
-from website.models import Url, User
+from website.models import Url
 import shortuuid, re
 from datetime import datetime
 
@@ -54,7 +54,7 @@ def create_url():
         else:  filler = ''
         return f"""
             <tr class="t-row">
-                <td><a href="{ BASE_URL }/{ new_url }" target="_blank" rel="noopener noreferrer">{ new_url }</a></td>
+                <td><a href="{ BASE_URL }/{ new_url }" target="_blank" rel="noopener noreferrer">{ BASE_URL }/{ new_url }</a></td>
                 <td><a href="{ original_url }" target="_blank" rel="noopener noreferrer">{ original_url[:60] }</a>{ filler }</td>
                 <td>0</td>
                 <td class="status !cursor-not-allowed mobile:hidden">Active

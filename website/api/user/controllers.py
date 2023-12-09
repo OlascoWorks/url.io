@@ -117,7 +117,7 @@ def make_error_response(error_text):
 
             <script>
                 dismissBtn = document.querySelector('.{dismiss_name}');
-                let alertDiv = document.querySelector('.{class_name}');
+                alertDiv = document.querySelector('.{class_name}');
 
                 dismissBtn.addEventListener('click', () => {{
                     alertDiv.classList.add('!hidden');
