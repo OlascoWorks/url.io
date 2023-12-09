@@ -32,11 +32,14 @@ def signup():
                 "id": user_id,
                 "exp": datetime.now() + timedelta(minutes=3)
             }
+            new_user = User(id=user_id, name=name, email=email, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+
             access_token = create_access_token(data)
             refresh_token = generate_refresh_token(user_id)
-
-            new_user = User(id=user_id, name=name, email=email, password=hashed_password, token=refresh_token)
-            db.session.add(new_user)
+            user = User.query.filter_by(id=user_id).first()
+            user.refresh_token = refresh_token
             db.session.commit()
 
             login_user(new_user, remember=True)

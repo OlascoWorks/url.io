@@ -6,7 +6,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.String(80), primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(80), nullable=False)
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     token = db.relationship('RefreshToken', uselist=False, backref='user')
     urls = db.relationship('Url')
