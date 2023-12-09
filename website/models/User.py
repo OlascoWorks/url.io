@@ -23,7 +23,7 @@ class Url(db.Model):
     status = db.Column(db.Integer, default=1)
     clicks = db.Column(db.Integer, default=0)
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.String(80), db.ForeignKey('user.id'))
 
     def __repr__(self) -> str:
         return f'Url --id "{self.id}"'
